@@ -1,14 +1,614 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Website Copy Roadmap Quiz - Breathe Create Design</title>
-    <meta name="description" content="Discover exactly which pages your website needs and get a personalized roadmap tailored to your business." />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="main.jsx"></script>
-  </body>
+    <meta name="description" content="Discover exactly which pages your website needs and get a personalized roadmap tailored to your business.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            background-color: #F5F5F0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .brand {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .brand-name {
+            font-size: 32px;
+            font-weight: 300;
+            color: #333333;
+            font-family: serif;
+        }
+
+        .brand-name span {
+            color: #ADB98F;
+        }
+
+        .brand-tagline {
+            font-size: 12px;
+            letter-spacing: 3px;
+            color: #7D806A;
+            margin-top: 5px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #ADB98F;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .progress-text {
+            text-align: center;
+            color: #7D806A;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 40px;
+        }
+
+        h1 {
+            color: #333333;
+            font-size: 32px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333333;
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        p {
+            color: #555555;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .option-btn {
+            width: 100%;
+            padding: 20px;
+            border: 2px solid #ADB98F;
+            background: white;
+            border-radius: 10px;
+            color: #333333;
+            font-size: 16px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-btn:hover {
+            background: #EBECFF;
+            transform: scale(1.02);
+        }
+
+        .option-btn strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .email-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ADB98F;
+            border-radius: 10px;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 15px;
+            background: #ADB98F;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            width: 100%;
+            padding: 15px;
+            background: white;
+            color: #ADB98F;
+            border: 2px solid #ADB98F;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+            margin-top: 15px;
+        }
+
+        .btn-secondary:hover {
+            opacity: 0.9;
+        }
+
+        .highlight-box {
+            background: #EBECFF;
+            border-left: 4px solid #ADB98F;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .page-detail {
+            border-left: 4px solid #ADB98F;
+            padding-left: 20px;
+            margin: 20px 0;
+        }
+
+        .page-detail h3 {
+            color: #333333;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .page-detail ul {
+            margin: 10px 0;
+            padding-left: 20px;
+            color: #555555;
+        }
+
+        .page-detail li {
+            margin: 5px 0;
+        }
+
+        .checklist {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="brand">
+            <div class="brand-name">breathe<span>create</span></div>
+            <div class="brand-tagline">DESIGN</div>
+        </div>
+
+        <div id="app"></div>
+    </div>
+
+    <script>
+        // Quiz data
+        const questions = [
+            {
+                id: 'industry',
+                question: 'What industry best describes your business?',
+                options: [
+                    { main: 'Coaching & Consulting', sub: '(business, life, career, executive, leadership, mindset, brand strategist, etc.)' },
+                    { main: 'Health & Wellness', sub: '(yoga, fitness, nutrition, dietitian, therapy, pilates, meditation, massage, holistic, etc.)' },
+                    { main: 'Creative Services', sub: '(copywriter, photographer, designer, stylist, social media manager, VA, videographer, illustrator, etc.)' },
+                    { main: 'E-commerce / Product-Based', sub: '(Etsy, Shopify, digital products, subscription boxes, boutiques, handmade goods, etc.)' }
+                ]
+            },
+            {
+                id: 'businessModel',
+                question: "What's your primary business model?",
+                options: [
+                    '1:1 Services (coaching, consulting, design work)',
+                    'Group Programs / Courses',
+                    'Digital Products / Resources',
+                    'Physical Products'
+                ]
+            },
+            {
+                id: 'businessStage',
+                question: "What stage is your business in?",
+                options: [
+                    'Just starting (0-2 years)',
+                    'Established (2-4 years)',
+                    'Scaling (4+ years)'
+                ]
+            },
+            {
+                id: 'websiteGoal',
+                question: "What's your main website goal?",
+                options: [
+                    'Establish credibility and online presence',
+                    'Generate leads and consultations',
+                    'Sell products or services directly',
+                    'Build email list and community',
+                    'Showcase portfolio and attract clients'
+                ]
+            },
+            {
+                id: 'numberOfOffers',
+                question: 'How many offers do you have?',
+                options: [
+                    '1 main offer',
+                    '2-3 offers',
+                    '4+ offers',
+                    "Still figuring it out"
+                ]
+            },
+            {
+                id: 'currentSituation',
+                question: "What's your current website situation?",
+                options: [
+                    'No website yet',
+                    'DIY website that needs help',
+                    'Outdated professional site',
+                    'Website on wrong platform'
+                ]
+            },
+            {
+                id: 'biggestChallenge',
+                question: "What's your biggest website challenge?",
+                options: [
+                    "Don't know what pages I need",
+                    "Struggling with copy and messaging",
+                    'Not converting visitors to clients',
+                    'Website looks unprofessional',
+                    'Too complicated to update'
+                ]
+            },
+            {
+                id: 'copyStatus',
+                question: 'Do you have your copy written?',
+                options: [
+                    'Yes, professionally written',
+                    'Yes, I wrote it myself',
+                    'Partially written',
+                    'Not written yet'
+                ]
+            },
+            {
+                id: 'brandAssets',
+                question: 'Do you have professional brand assets?',
+                options: [
+                    'Yes, full brand identity',
+                    'Logo and colors only',
+                    'DIY branding',
+                    'No branding yet'
+                ]
+            },
+            {
+                id: 'revenueGoal',
+                question: "What's your monthly revenue goal?",
+                options: [
+                    'Under $8K/month',
+                    '$8K-$20K/month',
+                    '$20K+/month',
+                    'Not sure yet'
+                ]
+            },
+            {
+                id: 'websiteJourney',
+                question: "Are you considering a website redesign?",
+                options: [
+                    'Actively planning a website redesign',
+                    'Exploring options and gathering information',
+                    'Thinking about it for down the road',
+                    "Just curious about what's involved"
+                ]
+            }
+        ];
+
+        // State
+        let currentStep = 0;
+        let answers = {};
+        let email = '';
+
+        // Initialize
+        renderStartScreen();
+
+        function renderStartScreen() {
+            const app = document.getElementById('app');
+            app.innerHTML = `
+                <div class="card">
+                    <h1>Website Copy Roadmap Quiz</h1>
+                    <p style="text-align: center; font-size: 18px;">Discover exactly which pages your website needs and get a personalized roadmap tailored to your business.</p>
+                    <div style="margin: 30px 0;">
+                        <div class="checklist">
+                            <span style="color: #ADB98F; font-size: 20px;">✓</span>
+                            <span>11 quick questions about your business and goals</span>
+                        </div>
+                        <div class="checklist">
+                            <span style="color: #ADB98F; font-size: 20px;">✓</span>
+                            <span>Personalized page recommendations with word counts and tips</span>
+                        </div>
+                        <div class="checklist">
+                            <span style="color: #ADB98F; font-size: 20px;">✓</span>
+                            <span>Package recommendation based on your specific needs</span>
+                        </div>
+                        <div class="checklist">
+                            <span style="color: #ADB98F; font-size: 20px;">✓</span>
+                            <span>Industry-specific guidance and examples</span>
+                        </div>
+                    </div>
+                    <button class="btn-primary" onclick="startQuiz()">Start Quiz</button>
+                    <p style="text-align: center; color: #7D806A; margin-top: 15px; font-size: 14px;">Takes about 3 minutes to complete</p>
+                </div>
+            `;
+        }
+
+        function startQuiz() {
+            currentStep = 0;
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const question = questions[currentStep];
+            const progress = ((currentStep + 1) / (questions.length + 1)) * 100;
+            
+            const app = document.getElementById('app');
+            app.innerHTML = `
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: ${progress}%"></div>
+                </div>
+                <p class="progress-text">Question ${currentStep + 1} of ${questions.length}</p>
+                <div class="card">
+                    <h2>${question.question}</h2>
+                    <div class="options">
+                        ${question.options.map((option, index) => {
+                            const isObject = typeof option === 'object';
+                            return `
+                                <button class="option-btn" onclick="handleAnswer(${index})">
+                                    ${isObject ? `<strong>${option.main}</strong> ${option.sub}` : option}
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function handleAnswer(optionIndex) {
+            const question = questions[currentStep];
+            const option = question.options[optionIndex];
+            const value = typeof option === 'object' ? option.main : option;
+            
+            answers[question.id] = value;
+            
+            if (currentStep < questions.length - 1) {
+                currentStep++;
+                renderQuestion();
+            } else {
+                renderEmailCapture();
+            }
+        }
+
+        function renderEmailCapture() {
+            const progress = ((currentStep + 2) / (questions.length + 1)) * 100;
+            const app = document.getElementById('app');
+            app.innerHTML = `
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: ${progress}%"></div>
+                </div>
+                <div class="card">
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <div style="font-size: 48px; margin-bottom: 15px;">📧</div>
+                        <h2>Almost there!</h2>
+                        <p style="font-size: 18px;">Enter your email to receive your personalized Website Copy Roadmap</p>
+                    </div>
+                    <input 
+                        type="email" 
+                        class="email-input" 
+                        placeholder="your@email.com"
+                        id="emailInput"
+                        onkeyup="checkEmail()"
+                    >
+                    <button class="btn-primary" id="submitBtn" onclick="submitEmail()" disabled>
+                        Get My Results
+                    </button>
+                </div>
+            `;
+        }
+
+        function checkEmail() {
+            const input = document.getElementById('emailInput');
+            const btn = document.getElementById('submitBtn');
+            email = input.value;
+            btn.disabled = !email || !email.includes('@');
+        }
+
+        function submitEmail() {
+            renderResults();
+        }
+
+        function getRecommendations() {
+            const industry = answers.industry;
+            const businessStage = answers.businessStage;
+            const numberOfOffers = answers.numberOfOffers;
+            const websiteGoal = answers.websiteGoal;
+            const revenueGoal = answers.revenueGoal;
+
+            let recommendedPackage = 'Starter';
+            let packagePrice = '$3,500';
+            let totalPages = 5;
+            let whyThisPackage = '';
+
+            if (
+                businessStage === 'Scaling (4+ years)' || 
+                revenueGoal === '$20K+/month' ||
+                numberOfOffers === '4+ offers'
+            ) {
+                recommendedPackage = 'Authority';
+                packagePrice = '$8,500+';
+                totalPages = 11;
+                whyThisPackage = "Based on your answers, you're operating at a level where your website needs to reflect your expertise and authority. You need comprehensive content and strategic positioning to compete at the top tier of your industry.";
+            } else if (
+                businessStage === 'Established (2-4 years)' ||
+                revenueGoal === '$8K-$20K/month' ||
+                (numberOfOffers === '2-3 offers') ||
+                websiteGoal === 'Sell products or services directly' ||
+                websiteGoal === 'Generate leads and consultations'
+            ) {
+                recommendedPackage = 'Growth';
+                packagePrice = '$5,500';
+                totalPages = 8;
+                whyThisPackage = "Based on your answers, you're past the startup phase and ready for a website that actively generates revenue. You need conversion-focused design and SEO to support your growth.";
+            } else {
+                recommendedPackage = 'Starter';
+                packagePrice = '$3,500';
+                totalPages = 5;
+                whyThisPackage = "Based on your answers, you're in the foundation-building phase. You need a clean, professional website that establishes your credibility without overwhelming complexity.";
+            }
+
+            return {
+                package: recommendedPackage,
+                packagePrice,
+                totalPages,
+                whyThisPackage
+            };
+        }
+
+        function renderResults() {
+            const recs = getRecommendations();
+            const app = document.getElementById('app');
+            
+            app.innerHTML = `
+                <div class="card">
+                    <h1>Your Personalized Website Copy Roadmap</h1>
+                    <p style="text-align: center; margin-bottom: 30px;">Based on your answers, here is exactly what your website needs to create a statement brand.</p>
+                    
+                    <div class="highlight-box">
+                        <h2 style="margin-bottom: 10px;">Recommended: ${recs.package} Site</h2>
+                        <p style="font-size: 20px; font-weight: 600; color: #ADB98F; margin-bottom: 15px;">
+                            ${recs.packagePrice} • ${recs.totalPages} pages total
+                        </p>
+                        <p>${recs.whyThisPackage}</p>
+                    </div>
+
+                    <h2 style="margin-top: 40px;">Your 5 Essential Foundation Pages</h2>
+                    <p>Every statement website starts with these core pages:</p>
+
+                    <div class="page-detail">
+                        <h3>Home (1,000-1,500 words)</h3>
+                        <p><strong>Purpose:</strong> Your first impression - clearly communicate what you do and who you help</p>
+                        <p><strong>Key Sections:</strong></p>
+                        <ul>
+                            <li>Hero with compelling headline</li>
+                            <li>Value proposition</li>
+                            <li>How you work (3-step process)</li>
+                            <li>Social proof (scattered testimonials)</li>
+                            <li>Clear CTA</li>
+                        </ul>
+                    </div>
+
+                    <div class="page-detail">
+                        <h3>About (800-1,200 words)</h3>
+                        <p><strong>Purpose:</strong> Build trust through your story, credentials, and what makes you different</p>
+                    </div>
+
+                    <div class="page-detail">
+                        <h3>Services / Work With Me (700-1,500 words)</h3>
+                        <p><strong>Purpose:</strong> Clear breakdown of your offers with benefits and how clients can work with you</p>
+                    </div>
+
+                    <div class="page-detail">
+                        <h3>Contact (200-300 words)</h3>
+                        <p><strong>Purpose:</strong> Make it easy and welcoming for potential clients to reach you</p>
+                    </div>
+
+                    <div style="margin-top: 40px; text-align: center;">
+                        <h2>Ready to Create Your Statement Website?</h2>
+                        <a href="https://client.breathecreatedesign.com/public/website-copy-roadmap---30-minute-meeting" target="_blank">
+                            <button class="btn-primary" style="margin: 20px 0;">
+                                📅 Book Your Free 30-Minute Strategy Call
+                            </button>
+                        </a>
+                        <button class="btn-secondary" onclick="resetQuiz()">
+                            🔄 Retake Quiz
+                        </button>
+                    </div>
+
+                    <p style="text-align: center; color: #7D806A; margin-top: 30px; font-size: 14px;">
+                        © 2025 Breathe Create Design | Andrea Botha
+                    </p>
+                </div>
+            `;
+        }
+
+        function resetQuiz() {
+            currentStep = 0;
+            answers = {};
+            email = '';
+            renderStartScreen();
+        }
+    </script>
+</body>
 </html>
