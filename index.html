@@ -73,10 +73,10 @@
 
         .card {
             background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            padding: 40px;
-            margin-bottom: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            padding: 50px;
+            margin-bottom: 30px;
         }
 
         h1 {
@@ -88,8 +88,10 @@
 
         h2 {
             color: #333333;
-            font-size: 24px;
-            margin-bottom: 20px;
+            font-size: 28px;
+            margin-bottom: 25px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
         }
 
         h3 {
@@ -186,18 +188,18 @@
         .highlight-box {
             background: #EBECFF;
             border-left: 4px solid #ADB98F;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 5px;
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 12px;
         }
 
         .info-box {
             background: #FFF9E6;
-            border-left: 3px solid #ADB98F;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 5px;
-            font-size: 14px;
+            border-left: 4px solid #ADB98F;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 10px;
+            font-size: 15px;
         }
 
         .bonus-box {
@@ -209,8 +211,10 @@
 
         .page-detail {
             border-left: 4px solid #ADB98F;
-            padding-left: 20px;
-            margin: 20px 0;
+            padding-left: 25px;
+            margin: 35px 0;
+            padding-top: 10px;
+            padding-bottom: 10px;
         }
 
         .page-detail h3 {
@@ -256,8 +260,8 @@
 
         .section-divider {
             border-top: 2px solid #EBECFF;
-            margin: 30px 0;
-            padding-top: 30px;
+            margin: 50px 0;
+            padding-top: 40px;
         }
 
         .footer-text {
@@ -273,19 +277,28 @@
 
         @media (max-width: 768px) {
             .card {
-                padding: 20px;
+                padding: 30px 20px;
             }
 
             h1 {
-                font-size: 24px;
+                font-size: 26px;
             }
 
             h2 {
-                font-size: 20px;
+                font-size: 22px;
             }
 
             .brand-name {
                 font-size: 24px;
+            }
+
+            .section-divider {
+                margin: 35px 0;
+                padding-top: 30px;
+            }
+
+            .page-detail {
+                margin: 25px 0;
             }
         }
     </style>
@@ -851,7 +864,6 @@
                     <div class="section-divider">
                         <h2>Legal Pages</h2>
                         <p>Based on your industry, you'll need: <strong>${legalPages}</strong></p>
-                        <p style="font-size: 14px; color: #7D806A; font-style: italic;">These pages require legal copy (not included in word count).</p>
                     </div>
 
                     <div class="section-divider">
@@ -871,11 +883,15 @@
                         ` : ''}
                     </div>
 
-                    <div class="section-divider" style="background: #EBECFF; padding: 30px; border-radius: 10px; text-align: center;">
-                        <h2>Your ${recs.package} Site Investment</h2>
-                        <p style="font-size: 32px; font-weight: 600; color: #1A1A1A; margin: 20px 0;">${recs.packagePrice}</p>
-                        <p style="font-size: 18px; margin-bottom: 20px;">Includes ${recs.totalPages} strategic pages designed to ${recs.package === 'Starter' ? 'establish your professional presence' : recs.package === 'Growth' ? 'actively convert visitors into paying clients' : 'position you as the go-to authority in your industry'}.</p>
-                        <p style="font-size: 14px; color: #7D806A; font-style: italic;">Legal page design (you provide copy) and Instagram Links Hub are included and don't count toward your page total.</p>
+                    <div class="section-divider" style="background: linear-gradient(135deg, #EBECFF 0%, #F5F5F0 100%); padding: 40px; border-radius: 15px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+                        <h2 style="margin-bottom: 20px;">Your ${recs.package} Site Investment</h2>
+                        <p style="font-size: 42px; font-weight: 600; color: #333333; margin: 25px 0; letter-spacing: -1px;">${recs.packagePrice}</p>
+                        <p style="font-size: 20px; margin-bottom: 30px; color: #333333; line-height: 1.6;">Includes ${recs.totalPages} strategic pages designed to ${recs.package === 'Starter' ? 'establish your professional presence' : recs.package === 'Growth' ? 'actively convert visitors into paying clients' : 'position you as the go-to authority in your industry'}.</p>
+
+                        <div style="background: white; padding: 25px; border-radius: 10px; margin-top: 30px; border: 2px solid #ADB98F;">
+                            <p style="font-size: 16px; font-weight: 600; color: #333333; margin-bottom: 10px;">✨ PLUS Bonus Pages Included</p>
+                            <p style="font-size: 15px; color: #333333; margin: 0;">Professional design for your legal pages (Terms, Privacy, etc.) and Instagram Links Hub—both excluded from your page count. You provide copy, we design them beautifully.</p>
+                        </div>
                     </div>
 
                     <div style="margin-top: 40px; text-align: center;">
