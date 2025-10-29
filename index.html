@@ -552,13 +552,13 @@
             let packageReason = '';
 
             if (
-                businessStage === 'Scaling (4+ years)' || 
+                businessStage === 'Scaling (4+ years)' ||
                 revenueGoal === '$20K+/month' ||
                 numberOfOffers === '4+ offers'
             ) {
                 recommendedPackage = 'Authority';
                 packagePrice = '$8,500+';
-                totalPages = 11;
+                totalPages = 12;
                 packageReason = "You're an established business ready to own your market with comprehensive content, advanced SEO, and premium positioning.";
                 whyThisPackage = "Based on your answers, you're operating at a level where your website needs to reflect your expertise and authority. You need comprehensive content and strategic positioning to compete at the top tier of your industry.";
             } else if (
@@ -571,8 +571,8 @@
                 recommendedPackage = 'Growth';
                 packagePrice = '$5,500';
                 totalPages = 8;
-                packageReason = "You're ready to actively convert visitors into clients with strategic design, SEO foundation, and a sales page.";
-                whyThisPackage = "Based on your answers, you're past the startup phase and ready for a website that actively generates revenue. You need conversion-focused design and SEO to support your growth.";
+                packageReason = "You're ready to actively convert visitors into clients with strategic design and a sales page.";
+                whyThisPackage = "Based on your answers, you're past the startup phase and ready for a website that actively generates revenue. You need conversion-focused design to support your growth.";
             } else {
                 recommendedPackage = 'Starter';
                 packagePrice = '$3,500';
@@ -581,12 +581,18 @@
                 whyThisPackage = "Based on your answers, you're in the foundation-building phase. You need a clean, professional website that establishes your credibility without overwhelming complexity.";
             }
 
-            // Get industry-specific 5th page
+            // Get industry-specific 5th page with dynamic word counts
             let fifthPage = {};
+            const fifthPageWordCounts = {
+                'Starter': '300-500',
+                'Growth': '600-800',
+                'Authority': '600-1,000'
+            };
+
             if (industry === 'Coaching & Consulting') {
                 fifthPage = {
                     name: 'Results / Case Studies',
-                    wordCount: '600-1,000',
+                    wordCount: fifthPageWordCounts[recommendedPackage],
                     purpose: 'Showcase client transformations and prove your methodology works',
                     sections: ['Client success stories', 'Before/after transformations', 'Results metrics', 'Process highlights', 'Video testimonials (if available)'],
                     tips: 'Feature specific, measurable results. Show the journey, not just the outcome.',
@@ -595,7 +601,7 @@
             } else if (industry === 'Health & Wellness') {
                 fifthPage = {
                     name: 'Approach / Philosophy',
-                    wordCount: '600-800',
+                    wordCount: fifthPageWordCounts[recommendedPackage],
                     purpose: 'Explain your methodology and what makes your approach unique',
                     sections: ['Your philosophy', 'Your methodology/framework', 'Who it works best for', 'What clients can expect', 'Client experiences'],
                     tips: 'Help potential clients understand what working with you actually feels like.',
@@ -604,7 +610,7 @@
             } else if (industry === 'Creative Services') {
                 fifthPage = {
                     name: 'Portfolio / Work',
-                    wordCount: '400-600',
+                    wordCount: fifthPageWordCounts[recommendedPackage],
                     purpose: 'Showcase your best work to prove expertise and attract ideal clients',
                     sections: ['6-10 best projects', 'Before/after (if applicable)', 'Client results', 'Your process highlights', 'Project testimonials'],
                     tips: 'Quality over quantity - curate your strongest work only. Add testimonials for each project.',
@@ -613,7 +619,7 @@
             } else {
                 fifthPage = {
                     name: 'Shop / Products',
-                    wordCount: '500-800',
+                    wordCount: fifthPageWordCounts[recommendedPackage],
                     purpose: 'Showcase products with compelling descriptions and seamless purchasing',
                     sections: ['Product categories', 'Featured products', 'Detailed descriptions', 'Customer reviews', 'Add to cart CTA', 'Shipping/returns'],
                     tips: 'Use lifestyle photography and benefit-driven product descriptions. Include product reviews.',
@@ -621,19 +627,41 @@
                 };
             }
 
+            // Dynamic word counts based on package
+            const wordCounts = {
+                'Starter': {
+                    home: '500-800',
+                    about: '400-600',
+                    services: '400-700',
+                    contact: '200-400'
+                },
+                'Growth': {
+                    home: '1,000-1,500',
+                    about: '600-1,200',
+                    services: '800-1,500',
+                    contact: '300-400'
+                },
+                'Authority': {
+                    home: '1,500-2,000',
+                    about: '800-1,500',
+                    services: '1,200-1,800',
+                    contact: '300-500'
+                }
+            };
+
             // Core pages
             const corePages = [
                 {
                     name: 'Home',
-                    wordCount: '1,000-1,500',
+                    wordCount: wordCounts[recommendedPackage].home,
                     purpose: 'Your first impression - clearly communicate what you do and who you help',
-                    sections: ['Hero with compelling headline', 'Value proposition', 'How you work (3-step process)', 'Social proof (scattered testimonials)', 'Clear CTA'],
-                    tips: 'Lead with transformation, not struggle. Embed FAQs for SEO. Make your CTA impossible to miss.',
+                    sections: ['Hero with compelling headline', 'Value proposition', 'Services/Offers overview', 'How you work (3-step process)', 'Social proof (scattered testimonials)'],
+                    tips: 'Lead with transformation, not struggle. Embed FAQs for SEO. Include a clear overview of your services/offers that link to your Work With Me or Sales pages.',
                     example: 'Instead of "I help overwhelmed entrepreneurs," try "Turn your expertise into consistent $10K months with strategic systems."'
                 },
                 {
                     name: 'About',
-                    wordCount: '800-1,200',
+                    wordCount: wordCounts[recommendedPackage].about,
                     purpose: 'Build trust through your story, credentials, and what makes you different',
                     sections: ['Your story (framed positively)', 'Credentials & experience', 'Your unique approach', 'Mission & values', 'Personal testimonials'],
                     tips: 'Focus on how your journey helps clients, not just your biography. Include personal testimonials about YOU.',
@@ -641,7 +669,7 @@
                 },
                 {
                     name: 'Services / Work With Me',
-                    wordCount: '700-1,500',
+                    wordCount: wordCounts[recommendedPackage].services,
                     purpose: 'Clear breakdown of your offers with benefits and how clients can work with you',
                     sections: ['Services overview', 'Each offer detailed', 'Key benefits', 'Service-specific testimonials', 'Process/timeline', 'Embedded FAQs', 'Next steps CTA'],
                     tips: 'Sell outcomes, not features. Add offer-specific FAQs for SEO. Include testimonials for each service.',
@@ -649,7 +677,7 @@
                 },
                 {
                     name: 'Contact',
-                    wordCount: '200-300',
+                    wordCount: wordCounts[recommendedPackage].contact,
                     purpose: 'Make it easy and welcoming for potential clients to reach you',
                     sections: ['Welcoming intro', 'Contact form or booking calendar', 'Email/social links', 'Response time expectation'],
                     tips: 'Remove friction - make booking feel easy and inviting.',
@@ -662,55 +690,62 @@
             let growthPages = [];
             if (recommendedPackage === 'Growth') {
                 growthPages = [
-                    { 
-                        name: 'Short-Form Sales Page', 
-                        wordCount: '1,500-2,500', 
+                    {
+                        name: 'Short-Form Sales Page',
+                        wordCount: '1,500-2,500',
                         purpose: 'Convert warm leads for your signature offer with focused persuasion',
                         note: 'First sales page included. Additional sales pages available.'
                     },
                     {
-                        name: 'Blog Grid',
-                        wordCount: 'Template design',
-                        purpose: 'Your content hub for SEO and thought leadership. Template design provided; content strategy available separately.'
+                        name: 'Blog',
+                        wordCount: 'Setup + template',
+                        purpose: 'Content hub for SEO and thought leadership. Includes setup with ONE styled blog post template.'
                     },
-                    { 
-                        name: 'Extended Social Proof', 
-                        wordCount: '400-600', 
-                        purpose: 'Additional case studies or detailed testimonials (beyond what is scattered on other pages)' 
+                    {
+                        name: 'Extended Social Proof',
+                        wordCount: '400-600',
+                        purpose: 'Additional case studies or detailed testimonials (beyond what is scattered on other pages)'
                     }
                 ];
             } else if (recommendedPackage === 'Authority') {
                 growthPages = [
-                    { 
-                        name: 'Long-Form Sales Page', 
-                        wordCount: '3,000-5,000', 
+                    {
+                        name: 'Long-Form Sales Page',
+                        wordCount: '3,000-5,000',
                         purpose: 'Full persuasive sales page for high-ticket offers with comprehensive storytelling',
-                        note: 'First long-form sales page included. Additional sales pages available for multiple offers.'
+                        note: 'For your signature high-ticket program ($5K+). Additional sales pages available.'
                     },
                     {
-                        name: 'Blog Grid',
-                        wordCount: 'Template design',
-                        purpose: 'Your content hub for SEO authority and audience nurturing. Template design provided; content strategy available separately.'
+                        name: 'Short-Form Sales Page',
+                        wordCount: '1,500-2,500',
+                        purpose: 'Conversion-focused page for your mid-tier or entry-level offer',
+                        note: 'Perfect for programs in the $500-$3K range. Both sales pages included in Authority.'
                     },
-                    { 
-                        name: 'Expanded Case Studies', 
-                        wordCount: '1,000+', 
-                        purpose: 'Deep-dive transformations with detailed before/after analysis' 
+                    {
+                        name: 'Blog',
+                        wordCount: 'Setup + template',
+                        purpose: 'Content hub for SEO authority and audience nurturing. Includes setup with ONE styled blog post template.'
                     },
-                    { 
-                        name: 'Press / Features', 
-                        wordCount: '400-600', 
-                        purpose: 'Media mentions and authority signals that build instant credibility' 
+                    {
+                        name: 'Expanded Case Studies',
+                        wordCount: '1,000-1,500',
+                        purpose: 'Deep-dive client transformations with detailed before/after analysis'
                     },
-                    { 
-                        name: 'Process / How It Works', 
-                        wordCount: '600-800', 
-                        purpose: 'Detailed methodology that establishes expertise' 
+                    {
+                        name: 'Press / Features',
+                        wordCount: '400-600',
+                        purpose: 'Media mentions, podcast appearances, and speaking engagements that build instant credibility',
+                        note: 'If you have 3-5 press mentions, these can be integrated into your About page instead.'
                     },
-                    { 
-                        name: 'Resources Hub', 
-                        wordCount: 'Setup', 
-                        purpose: 'Content hub positioning you as the go-to expert' 
+                    {
+                        name: 'Process / How It Works',
+                        wordCount: '600-800',
+                        purpose: 'Detailed methodology that establishes your expertise and unique approach'
+                    },
+                    {
+                        name: 'Resources Hub',
+                        wordCount: '600-800',
+                        purpose: 'Curated collection of your free and paid resources that position you as the go-to expert'
                     }
                 ];
             }
@@ -776,10 +811,7 @@
                     </div>
 
                     <div class="highlight-box">
-                        <h2 style="margin-bottom: 10px;">Recommended: ${recs.package} Site</h2>
-                        <p style="font-size: 20px; font-weight: 600; color: #1A1A1A; margin-bottom: 15px;">
-                            ${recs.packagePrice} • ${recs.totalPages} pages total
-                        </p>
+                        <h2 style="margin-bottom: 10px;">Recommended: ${recs.package} Site (${recs.totalPages} pages)</h2>
                         <p style="margin-bottom: 15px;">${recs.packageReason}</p>
                         <div style="background: #F5F5F0; padding: 15px; border-radius: 5px;">
                             <p style="font-size: 14px; font-weight: 600; margin-bottom: 10px; color: #333333;">💡 Why this package?</p>
@@ -817,27 +849,33 @@
                     ${growthPagesSection}
 
                     <div class="section-divider">
-                        <h2>✨ Essential Pages Included</h2>
-                        <p>When you work with Breathe Create Design, these essential pages are included in your package:</p>
-                        <div class="bonus-box">
-                            <div>
-                                <p style="font-weight: 600; margin-bottom: 5px; color: #333333;">Legal & Compliance Pages</p>
-                                <p style="font-size: 14px; margin-bottom: 10px;">Based on your industry, you'll need: <strong>${legalPages}</strong></p>
-                                <p style="font-size: 14px; margin: 0; color: #7D806A; font-style: italic;">You provide the copy (or work with a legal professional), I design them beautifully to match your brand.</p>
-                            </div>
-                        </div>
-                        <p style="font-size: 12px; font-style: italic; color: #7D806A; margin-top: 10px;">These essential pages do not count toward your package page total.</p>
+                        <h2>Legal Pages</h2>
+                        <p>Based on your industry, you'll need: <strong>${legalPages}</strong></p>
+                        <p style="font-size: 14px; color: #7D806A; font-style: italic;">These pages require legal copy (not included in word count).</p>
                     </div>
 
                     <div class="section-divider">
                         <h2>Smart Add-Ons to Consider Later</h2>
                         <p>Once your foundation is solid, enhance your website with these strategic additions:</p>
                         <ul style="margin-left: 20px;">
-                            <li style="margin-bottom: 8px;">Resources / Freebies - Grow your email list with valuable lead magnets</li>
-                            <li style="margin-bottom: 8px;">Thank You Page - Nurture new subscribers after they download your freebie</li>
-                            <li style="margin-bottom: 8px;">Additional Sales Pages - For multiple offers</li>
-                            <li style="margin-bottom: 8px;">Dedicated FAQ Page - Only if you have 20+ questions (otherwise embed in Home/Services)</li>
+                            <li style="margin-bottom: 8px;"><strong>Individual Freebie Landing Pages</strong> - Dedicated opt-in pages for specific resources (beyond your Resources Hub directory)</li>
+                            <li style="margin-bottom: 8px;"><strong>Thank You Page</strong> - Nurture new subscribers after they download your freebie</li>
+                            <li style="margin-bottom: 8px;"><strong>Additional Sales Pages</strong> - For multiple offers</li>
+                            <li style="margin-bottom: 8px;"><strong>Dedicated FAQ Page</strong> - Only if you have 20+ questions (otherwise embed in Home/Services)</li>
                         </ul>
+                        ${recs.package === 'Growth' ? `
+                        <div class="info-box" style="margin-top: 20px;">
+                            <p style="margin: 0;"><strong style="color: #333333;">🔍 Want to track your website performance?</strong><br>
+                            Upgrade to SEO Essentials (+$695) for Google Analytics and Search Console, or SEO Boost Premium (+$995) for enterprise-level tracking and optimization.</p>
+                        </div>
+                        ` : ''}
+                    </div>
+
+                    <div class="section-divider" style="background: #EBECFF; padding: 30px; border-radius: 10px; text-align: center;">
+                        <h2>Your ${recs.package} Site Investment</h2>
+                        <p style="font-size: 32px; font-weight: 600; color: #1A1A1A; margin: 20px 0;">${recs.packagePrice}</p>
+                        <p style="font-size: 18px; margin-bottom: 20px;">Includes ${recs.totalPages} strategic pages designed to ${recs.package === 'Starter' ? 'establish your professional presence' : recs.package === 'Growth' ? 'actively convert visitors into paying clients' : 'position you as the go-to authority in your industry'}.</p>
+                        <p style="font-size: 14px; color: #7D806A; font-style: italic;">Legal page design (you provide copy) and Instagram Links Hub are included and don't count toward your page total.</p>
                     </div>
 
                     <div style="margin-top: 40px; text-align: center;">
