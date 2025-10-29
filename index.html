@@ -668,10 +668,10 @@
                         purpose: 'Convert warm leads for your signature offer with focused persuasion',
                         note: 'First sales page included. Additional sales pages available.'
                     },
-                    { 
-                        name: 'Blog Grid', 
-                        wordCount: 'Setup only', 
-                        purpose: 'Content hub for SEO and thought leadership' 
+                    {
+                        name: 'Blog Grid',
+                        wordCount: 'Template design',
+                        purpose: 'Your content hub for SEO and thought leadership. Template design provided; content strategy available separately.'
                     },
                     { 
                         name: 'Extended Social Proof', 
@@ -687,10 +687,10 @@
                         purpose: 'Full persuasive sales page for high-ticket offers with comprehensive storytelling',
                         note: 'First long-form sales page included. Additional sales pages available for multiple offers.'
                     },
-                    { 
-                        name: 'Blog Grid', 
-                        wordCount: 'Setup only', 
-                        purpose: 'Content hub for SEO authority and audience nurturing' 
+                    {
+                        name: 'Blog Grid',
+                        wordCount: 'Template design',
+                        purpose: 'Your content hub for SEO authority and audience nurturing. Template design provided; content strategy available separately.'
                     },
                     { 
                         name: 'Expanded Case Studies', 
@@ -729,6 +729,19 @@
         function renderResults() {
             const recs = getRecommendations();
             const app = document.getElementById('app');
+
+            // Get industry-specific legal pages
+            const industry = answers.industry;
+            let legalPages = '';
+            if (industry === 'Coaching & Consulting') {
+                legalPages = 'Terms of Service, Privacy Policy, Disclaimer, Instagram Links Hub';
+            } else if (industry === 'E-commerce / Product-Based') {
+                legalPages = 'Terms of Service, Privacy Policy, Shipping & Returns Policy, Instagram Links Hub';
+            } else if (industry === 'Health & Wellness') {
+                legalPages = 'Terms of Service, Privacy Policy, Medical Disclaimer, Instagram Links Hub';
+            } else {
+                legalPages = 'Terms of Service, Privacy Policy, Copyright & Usage Terms, Instagram Links Hub';
+            }
             
             let growthPagesSection = '';
             if (recs.growthPages.length > 0) {
@@ -756,11 +769,15 @@
             app.innerHTML = `
                 <div class="card">
                     <h1>Your Personalized Website Copy Roadmap</h1>
-                    <p style="text-align: center; margin-bottom: 30px;">Based on your answers, here is exactly what your website needs to create a statement brand.</p>
-                    
+                    <p style="text-align: center; margin-bottom: 20px;">Based on your answers, here is exactly what your website needs to create a statement brand.</p>
+
+                    <div class="info-box" style="margin-bottom: 30px;">
+                        <p style="margin: 0; text-align: center;"><strong style="color: #333333;">📋 Note:</strong> This is a guideline based on industry best practices and your current business stage. Your actual needs may vary.</p>
+                    </div>
+
                     <div class="highlight-box">
                         <h2 style="margin-bottom: 10px;">Recommended: ${recs.package} Site</h2>
-                        <p style="font-size: 20px; font-weight: 600; color: #ADB98F; margin-bottom: 15px;">
+                        <p style="font-size: 20px; font-weight: 600; color: #1A1A1A; margin-bottom: 15px;">
                             ${recs.packagePrice} • ${recs.totalPages} pages total
                         </p>
                         <p style="margin-bottom: 15px;">${recs.packageReason}</p>
@@ -800,19 +817,16 @@
                     ${growthPagesSection}
 
                     <div class="section-divider">
-                        <h2>✨ Bonus Pages (Included FREE)</h2>
-                        <p>When you work with Breathe Create Design, these essential pages are bonus additions to your package:</p>
+                        <h2>✨ Essential Pages Included</h2>
+                        <p>When you work with Breathe Create Design, these essential pages are included in your package:</p>
                         <div class="bonus-box">
-                            <div style="margin-bottom: 15px;">
-                                <p style="font-weight: 600; margin-bottom: 5px; color: #333333;">Legal Pages (Terms, Privacy Policy, Disclaimer)</p>
-                                <p style="font-size: 14px; margin: 0;">You provide the copy, I design them beautifully. Essential for credibility and compliance.</p>
-                            </div>
                             <div>
-                                <p style="font-weight: 600; margin-bottom: 5px; color: #333333;">Instagram Links Page</p>
-                                <p style="font-size: 14px; margin: 0;">Drive social traffic directly to your key offers. Perfect for mobile users.</p>
+                                <p style="font-weight: 600; margin-bottom: 5px; color: #333333;">Legal & Compliance Pages</p>
+                                <p style="font-size: 14px; margin-bottom: 10px;">Based on your industry, you'll need: <strong>${legalPages}</strong></p>
+                                <p style="font-size: 14px; margin: 0; color: #7D806A; font-style: italic;">You provide the copy (or work with a legal professional), I design them beautifully to match your brand.</p>
                             </div>
                         </div>
-                        <p style="font-size: 12px; font-style: italic; color: #7D806A; margin-top: 10px;">These pages do not count toward your package page total - they are my gift to ensure your site is complete.</p>
+                        <p style="font-size: 12px; font-style: italic; color: #7D806A; margin-top: 10px;">These essential pages do not count toward your package page total.</p>
                     </div>
 
                     <div class="section-divider">
@@ -821,7 +835,7 @@
                         <ul style="margin-left: 20px;">
                             <li style="margin-bottom: 8px;">Resources / Freebies - Grow your email list with valuable lead magnets</li>
                             <li style="margin-bottom: 8px;">Thank You Page - Nurture new subscribers after they download your freebie</li>
-                            <li style="margin-bottom: 8px;">Additional Sales Pages - For multiple offers (short-form $795, long-form $1,195)</li>
+                            <li style="margin-bottom: 8px;">Additional Sales Pages - For multiple offers</li>
                             <li style="margin-bottom: 8px;">Dedicated FAQ Page - Only if you have 20+ questions (otherwise embed in Home/Services)</li>
                         </ul>
                     </div>
